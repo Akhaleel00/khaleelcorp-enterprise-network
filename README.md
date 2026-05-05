@@ -25,5 +25,4 @@ routing, redundancy, NAT, DHCP, and security hardening end-to-end.
 ## How to Navigate This Repo
 - /configs — full running configs for all 4 devices
 - /evidence — show command output proving each feature works
-- /labs — write-ups for each build phase
 - network-handoff.md — handoff doc written for IT ops team
