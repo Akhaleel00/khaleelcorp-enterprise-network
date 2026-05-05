@@ -1,0 +1,218 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c0;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf2 \CocoaLigature0 Router-A>enable\
+Router-A#show running-config\
+Building configuration...\
+\
+\
+Current configuration : 2844 bytes\
+!\
+! Last configuration change at 22:04:22 UTC Tue Apr 28 2026\
+!\
+version 16.6\
+service timestamps debug datetime msec\
+service timestamps log datetime msec\
+platform qfp utilization monitor load 80\
+no platform punt-keepalive disable-kernel-core\
+!\
+hostname Router-A\
+!\
+boot-start-marker\
+boot-end-marker\
+!\
+!\
+vrf definition Mgmt-intf\
+ !\
+ address-family ipv4\
+ exit-address-family\
+ !\
+ address-family ipv6\
+ exit-address-family\
+!         \
+!         \
+no aaa new-model\
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+ip domain name khaleel.local\
+ip dhcp excluded-address 192.168.10.1 192.168.10.10\
+ip dhcp excluded-address 192.168.20.1 192.168.20.10\
+!         \
+ip dhcp pool VLAN10-RECEPTION\
+ network 192.168.10.0 255.255.255.0\
+ default-router 192.168.10.1 \
+ dns-server 8.8.8.8 \
+!         \
+ip dhcp pool VLAN20-SALES\
+ network 192.168.20.0 255.255.255.0\
+ default-router 192.168.20.1 \
+ dns-server 8.8.8.8 \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+subscriber templating\
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+multilink bundle-name authenticated\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+!         \
+!         \
+crypto pki trustpoint TP-self-signed-3499619924\
+ enrollment selfsigned\
+ subject-name cn=IOS-Self-Signed-Certificate-3499619924\
+ revocation-check none\
+ rsakeypair TP-self-signed-3499619924\
+!         \
+!         \
+crypto pki certificate chain TP-self-signed-3499619924\
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+license udi pid ISR4331/K9 sn FDO21021975\
+diagnostic bootup level minimal\
+spanning-tree extend system-id\
+!         \
+!         \
+!         \
+username admin privilege 15 secret 5 $1$IZc/$r6oRlggNIumH7ag3w/m/M/\
+!         \
+redundancy\
+ mode none\
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+interface Loopback0\
+ ip address 10.0.1.1 255.255.255.0\
+!         \
+interface GigabitEthernet0/0/0\
+ ip address 10.0.100.2 255.255.255.252\
+ ip nat inside\
+ negotiation auto\
+!         \
+interface GigabitEthernet0/0/1\
+ ip address dhcp\
+ ip nat outside\
+ negotiation auto\
+!         \
+interface GigabitEthernet0/0/2\
+ no ip address\
+ shutdown \
+ negotiation auto\
+!         \
+interface GigabitEthernet0\
+ vrf forwarding Mgmt-intf\
+ no ip address\
+ shutdown \
+ negotiation auto\
+!         \
+router ospf 1\
+ router-id 1.1.1.1\
+ network 10.0.1.0 0.0.0.255 area 0\
+ network 10.0.100.0 0.0.0.3 area 0\
+ default-information originate always\
+!         \
+ip nat inside source list NAT-TRAFFIC interface GigabitEthernet0/0/1 overload\
+ip forward-protocol nd\
+ip http server\
+ip http authentication local\
+ip http secure-server\
+ip tftp source-interface GigabitEthernet0\
+ip route 0.0.0.0 0.0.0.0 dhcp\
+!         \
+ip ssh version 2\
+!         \
+!         \
+ip access-list standard NAT-TRAFFIC\
+ permit 192.168.10.0 0.0.0.255\
+ permit 192.168.20.0 0.0.0.255\
+ permit 192.168.30.0 0.0.0.255\
+ permit 10.0.99.0 0.0.0.255\
+!         \
+!         \
+!         \
+!         \
+control-plane\
+!         \
+!         \
+mgcp behavior rsip-range tgcp-only\
+mgcp behavior comedia-role none\
+mgcp behavior comedia-check-media-src disable\
+mgcp behavior comedia-sdp-force disable\
+!         \
+mgcp profile default\
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+line con 0\
+ logging synchronous\
+ transport input none\
+ stopbits 1\
+line aux 0\
+ stopbits 1\
+line vty 0 4\
+ login local\
+ transport input ssh\
+line vty 5 15\
+ login local\
+ transport input ssh\
+!         \
+!         \
+!         \
+!         \
+!         \
+!         \
+end       \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\
+}
