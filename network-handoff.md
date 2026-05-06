@@ -310,7 +310,7 @@ evidence/       → test screenshots and outputs
     
 - Add automation
     
-- Add a dashboard to visualize 
+- Add a dashboard to visualize data collected from automation
     
 
 ---
