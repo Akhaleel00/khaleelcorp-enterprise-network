@@ -1,0 +1,93 @@
+SW-DIST#conf t 
+
+Enter configuration commands, one per line.  End with CNTL/Z.
+
+SW-DIST(config)#int g1/0/2
+
+SW-DIST(config-if)#shutdown
+
+SW-DIST(config-if)#end
+
+SW-DIST#
+
+*Mar  1 01:21:07.690: %OSPF-5-ADJCHG: Process 1, Nbr 1.1.1.1 on GigabitEthernet1/0/2 from FULL to DOWN, Neighbor Down: Interface down or detached
+
+SW-DIST#
+
+*Mar  1 01:21:09.435: %SYS-5-CONFIG_I: Configured from console by console
+
+*Mar  1 01:21:09.695: %LINK-5-CHANGED: Interface GigabitEthernet1/0/2, changed state to administratively down
+
+*Mar  1 01:21:10.710: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/2, changed state to downsh ip route
+
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+
+       + - replicated route, % - next hop override
+
+  
+
+Gateway of last resort is not set
+
+  
+
+      10.0.0.0/8 is variably subnetted, 5 subnets, 3 masks
+
+O        10.0.2.1/32 [110/2] via 10.0.101.2, 01:15:55, GigabitEthernet1/0/3
+
+C        10.0.99.0/24 is directly connected, Vlan99
+
+L        10.0.99.1/32 is directly connected, Vlan99
+
+C        10.0.101.0/30 is directly connected, GigabitEthernet1/0/3
+
+L        10.0.101.1/32 is directly connected, GigabitEthernet1/0/3
+
+      192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks
+
+C        192.168.10.0/24 is directly connected, Vlan10
+
+L        192.168.10.1/32 is directly connected, Vlan10
+
+      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+
+C        192.168.20.0/24 is directly connected, Vlan20
+
+L        192.168.20.1/32 is directly connected, Vlan20
+
+      192.168.30.0/24 is variably subnetted, 2 subnets, 2 masks
+
+C        192.168.30.0/24 is directly connected, Vlan30
+
+L        192.168.30.1/32 is directly connected, Vlan30
+
+SW-DIST#sh ip ospf neighbor
+
+  
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+
+2.2.2.2           1   FULL/BDR        00:00:32    10.0.101.2      GigabitEthernet1/0/3
+
+SW-DIST#ping 10.0.2.1 repeat 5
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to 10.0.2.1, timeout is 2 seconds:
+
+!!!!!
+
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/8 ms
+
+SW-DIST#

@@ -1,0 +1,145 @@
+SW-DIST#show spanning-tree vlan 10
+
+  
+
+VLAN0010
+
+  Spanning tree enabled protocol ieee
+
+  Root ID    Priority    4106
+
+             Address     c40a.cb3e.5c00
+
+             This bridge is the root
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  
+
+  Bridge ID  Priority    4106   (priority 4096 sys-id-ext 10)
+
+             Address     c40a.cb3e.5c00
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+             Aging Time  300 sec
+
+  
+
+Interface           Role Sts Cost      Prio.Nbr Type
+
+------------------- ---- --- --------- -------- --------------------------------
+
+Gi1/0/1             Desg FWD 4         128.1    P2p
+
+  
+
+  
+
+SW-DIST#show spanning-tree vlan 20
+
+  
+
+VLAN0020
+
+  Spanning tree enabled protocol ieee
+
+  Root ID    Priority    4116
+
+             Address     c40a.cb3e.5c00
+
+             This bridge is the root
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  
+
+  Bridge ID  Priority    4116   (priority 4096 sys-id-ext 20)
+
+             Address     c40a.cb3e.5c00
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+             Aging Time  300 sec
+
+  
+
+Interface           Role Sts Cost      Prio.Nbr Type
+
+------------------- ---- --- --------- -------- --------------------------------
+
+Gi1/0/1             Desg FWD 4         128.1    P2p
+
+  
+
+  
+
+SW-DIST#show spanning-tree vlan 30
+
+  
+
+VLAN0030
+
+  Spanning tree enabled protocol ieee
+
+  Root ID    Priority    4126
+
+             Address     c40a.cb3e.5c00
+
+             This bridge is the root
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  
+
+  Bridge ID  Priority    4126   (priority 4096 sys-id-ext 30)
+
+             Address     c40a.cb3e.5c00
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+             Aging Time  300 sec
+
+  
+
+Interface           Role Sts Cost      Prio.Nbr Type
+
+------------------- ---- --- --------- -------- --------------------------------
+
+Gi1/0/1             Desg FWD 4         128.1    P2p
+
+  
+
+SW-DIST#sh spanning-tree vlan 99                                             
+
+  
+
+VLAN0099
+
+  Spanning tree enabled protocol ieee
+
+  Root ID    Priority    4195
+
+             Address     c40a.cb3e.5c00
+
+             This bridge is the root
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  
+
+  Bridge ID  Priority    4195   (priority 4096 sys-id-ext 99)
+
+             Address     c40a.cb3e.5c00
+
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+             Aging Time  300 sec
+
+  
+
+Interface           Role Sts Cost      Prio.Nbr Type
+
+------------------- ---- --- --------- -------- --------------------------------
+
+Gi1/0/1             Desg FWD 4         128.1    P2p

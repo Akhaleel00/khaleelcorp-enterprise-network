@@ -1,0 +1,25 @@
+SW-ACCESS#sh int trunk
+
+  
+
+Port        Mode             Encapsulation  Status        Native vlan
+
+Gi0/1       on               802.1q         trunking      1
+
+  
+
+Port        Vlans allowed on trunk
+
+Gi0/1       10,20,30,99
+
+  
+
+Port        Vlans allowed and active in management domain
+
+Gi0/1       10,20,30,99
+
+  
+
+Port        Vlans in spanning tree forwarding state and not pruned
+
+Gi0/1       10,20,30,99

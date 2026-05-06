@@ -1,0 +1,25 @@
+SW-DIST#sh int trunk
+
+  
+
+Port        Mode             Encapsulation  Status        Native vlan
+
+Gi1/0/1     on               802.1q         trunking      1
+
+  
+
+Port        Vlans allowed on trunk
+
+Gi1/0/1     10,20,30,99
+
+  
+
+Port        Vlans allowed and active in management domain
+
+Gi1/0/1     10,20,30,99
+
+  
+
+Port        Vlans in spanning tree forwarding state and not pruned
+
+Gi1/0/1     10,20,30,99

@@ -1,0 +1,15 @@
+Router-A#sh ip interface brief
+
+Interface              IP-Address      OK? Method Status                Protocol
+
+GigabitEthernet0/0/0   10.0.100.2      YES NVRAM  up                    up      
+
+GigabitEthernet0/0/1   10.0.0.249      YES DHCP   up                    up      
+
+GigabitEthernet0/0/2   unassigned      YES NVRAM  administratively down down    
+
+GigabitEthernet0       unassigned      YES NVRAM  administratively down down    
+
+Loopback0              10.0.1.1        YES NVRAM  up                    up      
+
+Router-A#
