@@ -1,6 +1,6 @@
 # Network Handoff Document
 
-**Project:** Acme Enterprise Network Lab  
+**Project:** Khaleel Corp Enterprise Network Lab  
 **Author:** Amin Khaleel  
 **Date:** 2026-05
 
@@ -56,7 +56,7 @@ The goal of this network is to demonstrate practical routing, switching, trouble
 # 3. Network Diagram
 
 Refer to:  
-`network-diagram.png`
+`khaleelcorp-network-diagram`
 
 ---
 
@@ -278,49 +278,11 @@ show interfaces trunk
 
 ---
 
-# 12. Automation
-
-A Python script using Netmiko was developed to:
-
-- Connect to network devices via SSH
-    
-- Run operational commands
-    
-- Save outputs for analysis
-    
-
-Example commands automated:
-
-- `show ip interface brief`
-    
-- `show ip route`
-    
-- `show ip ospf neighbor`
-    
-
----
-
-# 13. Dashboard (Optional Component)
-
-A basic web dashboard was implemented using Flask to visualize:
-
-- Device status
-    
-- Routing tables
-    
-- OSPF neighbors
-    
-
----
-
 # 14. Repository Structure
 
 ```text
 configs/        → device configurations  
-evidence/       → test screenshots and outputs  
-automation/     → Python scripts  
-dashboard/      → Flask application  
-troubleshooting/→ issues and fixes  
+evidence/       → test screenshots and outputs      
 ```
 
 ---
@@ -346,9 +308,9 @@ troubleshooting/→ issues and fixes
     
 - Add SNMP monitoring
     
-- Expand automation (config push, backups)
+- Add automation
     
-- Improve dashboard with real-time updates
+- Add a dashboard to visualize 
     
 
 ---
@@ -364,8 +326,7 @@ This network demonstrates:
 - Fault tolerance via OSPF
     
 - Real-world troubleshooting
-    
-- Automation and monitoring concepts
+
     
 
 The environment is fully functional and can be extended for more advanced networking scenarios.
