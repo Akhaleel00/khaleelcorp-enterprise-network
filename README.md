@@ -26,3 +26,6 @@ routing, redundancy, NAT, DHCP, and security hardening end-to-end.
 - /configs — full running configs for all 4 devices
 - /evidence — show command output proving each feature works
 - network-handoff.md — handoff doc written for IT ops team
+
+
+<img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
