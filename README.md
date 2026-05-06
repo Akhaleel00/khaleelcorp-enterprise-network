@@ -20,7 +20,7 @@ routing, redundancy, NAT, DHCP, and security hardening end-to-end.
 - SSH v2 hardening, port security, DHCP snooping
 
 ## Network Diagram
-[embed topology.png here]
+<img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
 
 ## How to Navigate This Repo
 - /configs — full running configs for all 4 devices
@@ -28,4 +28,4 @@ routing, redundancy, NAT, DHCP, and security hardening end-to-end.
 - network-handoff.md — handoff doc written for IT ops team
 
 
-<img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
+
