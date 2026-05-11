@@ -190,6 +190,12 @@ outputs/
 
 These files contain unmodified Cisco CLI command outputs collected directly from devices.
 
+To get Raw CLI Output storage
+
+```bash
+python3 collector.py
+```
+
 ---
 
 ### 2. Structured JSON Snapshot Storage
