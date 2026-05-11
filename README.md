@@ -60,17 +60,7 @@ Dashboard functionality
 
 
 ## Dashboard Screenshots
-Main Dashboard
-
-
-
-
-OSPF Monitoring
-
-
-
-
-Routing Table View
+![alt text](<automation/screenshots/Screenshot 2026-05-11 at 6.55.54 pm.png>)
 
 ## Repository Structure
 - /configs — full running configs for all 4 devices
