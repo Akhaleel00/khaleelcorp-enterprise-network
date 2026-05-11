@@ -4,7 +4,7 @@
 A fully functional enterprise-style network built on physical Cisco hardware,
 simulating a real enterprise branch office deployment. 
 
-Project implements VLAN segmentation, inter-VLAN routing, OSPF dynamic routing, NAT, DHCP failover testing, Python automation, and a Flask monitoring dashboard.
+Project implements NAT, DHCP services, OSPF failover testing, Python automation, and a Flask monitoring dashboard.
 
 Operational data is collected from Cisco devices via SSH using Python and visualized through a web dashboard.
 
@@ -30,17 +30,47 @@ SSHv2 remote management
 Port security (sticky MAC)
 BPDU Guard
 VLAN isolation
-High Availability
+
+### High Availability
 OSPF-based internal failover testing
 Primary/backup router topology
+
 ### Automation & Monitoring
 Python automation using Netmiko
 SSH data collection
 JSON snapshot storage
 Flask monitoring dashboard
+Historical snapshot browsing
+
+### Validation Tests
+
+The following features were successfully tested and validated:
+
+DHCP lease assignment
+NAT translations
+OSPF neighbor adjacency
+Inter-VLAN routing
+Internet connectivity
+Internal failover routing
+SSH automation connectivity
+Dashboard functionality
 
 ## Network Diagram
 <img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
+
+
+## Dashboard Screenshots
+Main Dashboard
+
+
+
+
+OSPF Monitoring
+
+
+
+
+Routing Table View
 
 ## Repository Structure
 - /configs — full running configs for all 4 devices
