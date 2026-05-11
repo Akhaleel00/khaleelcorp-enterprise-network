@@ -190,11 +190,10 @@ http://127.0.0.1:5000
 ---
 
 ## Dashboard Screenshot
-
-### Main Dashboard
-
-![Dashboard](screenshots/dashboard-home.png)
-
+![alt text](<screenshots/Screenshot 2026-05-11 at 6.55.54 pm.png>)
+![alt text](<screenshots/Screenshot 2026-05-11 at 6.56.09 pm.png>)
+![alt text](<screenshots/Screenshot 2026-05-11 at 6.56.18 pm.png>)
+![alt text](<screenshots/Screenshot 2026-05-11 at 6.54.20 pm.png>)
 ---
 
 ## Data Collection Architecture
