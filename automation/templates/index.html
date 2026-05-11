@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Automation Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            padding: 24px;
+        }
+
+        h1 {
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .device-card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 24px;
+            border: 1px solid #334155;
+        }
+
+        .device-title {
+            color: #60a5fa;
+            margin-bottom: 12px;
+        }
+
+        .section {
+            margin-top: 16px;
+        }
+
+        .section h3 {
+            color: #fbbf24;
+            margin-bottom: 6px;
+        }
+
+        pre {
+            background: #020617;
+            color: #d1d5db;
+            padding: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-size: 13px;
+        }
+
+        .error {
+            color: #f87171;
+        }
+        form {
+            margin-bottom: 24px;
+}
+
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: white;
+}
+    </style>
+</head>
+<body>
+
+    <h1>Enterprise Network Dashboard</h1>
+    <div class="subtitle">Last updated: {{ data.last_updated }}</div>
+
+    <form method="GET" action="/">
+    <label for="snapshot">View Snapshot:</label>
+
+    <select name="snapshot" id="snapshot" onchange="this.form.submit()">
+        <option value="">Latest</option>
+
+        {% for snapshot in snapshots %}
+            <option value="{{ snapshot }}"
+                {% if selected_snapshot == snapshot %}selected{% endif %}>
+                {{ snapshot }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+<p>Currently viewing: {{ selected_snapshot }}</p>
+
+    {% for device_name, info in data.devices.items() %}
+        <div class="device-card">
+            <h2 class="device-title">{{ device_name }}</h2>
+
+            {% if info.error %}
+                <pre class="error">{{ info.error }}</pre>
+            {% else %}
+
+                <div class="section">
+                    <h3>Interfaces</h3>
+                    <pre>{{ info.interfaces }}</pre>
+                </div>
+
+                <div class="section">
+                    <h3>OSPF Neighbors</h3>
+                    <pre>{{ info.ospf }}</pre>
+                </div>
+
+                <div class="section">
+                    <h3>Routing Table</h3>
+                    <pre>{{ info.routes }}</pre>
+                </div>
+
+                <div class="section">
+                    <h3>VLANs</h3>
+                    <pre>{{ info.vlans }}</pre>
+                </div>
+
+                <div class="section">
+                    <h3>Trunks</h3>
+                    <pre>{{ info.trunks }}</pre>
+                </div>
+
+            {% endif %}
+        </div>
+    {% endfor %}
+
+</body>
+</html>
