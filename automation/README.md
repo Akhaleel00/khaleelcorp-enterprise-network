@@ -26,12 +26,13 @@ The automation stack connects to Cisco IOS devices using SSH and Netmiko, collec
 * VLAN visibility
 * Trunk monitoring
 * Historical network snapshots
+* Snapshot browsing from dashboard interface
 
 ---
 
 ## Technologies Used
 
-* Python
+* Python 3.9+
 * Netmiko
 * Flask
 * JSON
@@ -69,6 +70,7 @@ automation/
 
 ```bash
 git clone YOUR_REPO_LINK
+cd khaleelcorp-enterprise-network
 cd automation
 ```
 
@@ -77,7 +79,7 @@ cd automation
 ### Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ---
@@ -123,6 +125,18 @@ This will:
 
 ---
 
+## Run Raw CLI Collector
+
+Generate raw CLI output backups:
+
+```bash
+python3 collector.py
+```
+
+This creates timestamped folders containing unmodified Cisco CLI command outputs.
+
+---
+
 ## Run Flask Dashboard
 
 Start the dashboard server:
@@ -139,6 +153,32 @@ http://127.0.0.1:5000
 
 ---
 
+## Example Workflow
+
+1. Run automation collector:
+
+```bash
+python3 dashboard_collector.py
+```
+
+2. Generate timestamped JSON snapshots
+
+3. Start Flask dashboard:
+
+```bash
+python3 app.py
+```
+
+4. Browse dashboard:
+
+```text
+http://127.0.0.1:5000
+```
+
+5. Review historical snapshots directly from the dashboard dropdown menu
+
+---
+
 ## Example Commands Collected
 
 * `show ip interface brief`
@@ -149,25 +189,17 @@ http://127.0.0.1:5000
 
 ---
 
-## Dashboard Screenshots
+## Dashboard Screenshot
 
 ### Main Dashboard
 
 ![Dashboard](screenshots/dashboard-home.png)
 
-### OSPF Monitoring
-
-![OSPF](screenshots/ospf-monitoring.png)
-
-### Routing Table View
-
-![Routing](screenshots/routing-view.png)
-
 ---
 
 ## Data Collection Architecture
 
-The automation platform stores network data using two collection methods:
+The automation platform stores network data using two collection methods.
 
 ### 1. Raw CLI Output Storage
 
@@ -180,7 +212,7 @@ Operational command outputs are saved as raw text files for:
 
 Example:
 
-```text id="jlwmda1"
+```text
 outputs/
 └── 2026-05-11_17-15-30/
     ├── Router-A.txt
@@ -190,7 +222,7 @@ outputs/
 
 These files contain unmodified Cisco CLI command outputs collected directly from devices.
 
-To get Raw CLI Output storage
+Generate raw CLI outputs with:
 
 ```bash
 python3 collector.py
@@ -204,7 +236,7 @@ Operational network state is also stored as structured JSON snapshots for dashbo
 
 Example:
 
-```text id="jlwmda2"
+```text
 data/
 ├── latest.json
 └── snapshots/
@@ -223,7 +255,7 @@ Each snapshot contains:
 
 The Flask dashboard reads from:
 
-```text id="jlwmda3"
+```text
 data/latest.json
 ```
 
@@ -239,6 +271,7 @@ while historical snapshots can be browsed directly from the dashboard interface.
 * Simplified future monitoring expansion
 * Foundation for alerting and analytics
 
+---
 
 ## Validation Tests
 
@@ -265,4 +298,3 @@ The automation platform successfully validated:
 * Database integration
 
 ---
-
