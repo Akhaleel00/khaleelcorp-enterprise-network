@@ -4,7 +4,7 @@
 A fully functional enterprise-style network built on physical Cisco hardware,
 simulating a real enterprise branch office deployment. 
 
-Project implements NAT, DHCP services, OSPF failover testing, Python automation, and a Flask monitoring dashboard.
+Project implements enterprise routing and switching, dual-WAN internet resiliency, NAT services, OSPF failover testing, Python automation, and a Flask monitoring dashboard.
 
 Operational data is collected from Cisco devices via SSH using Python and visualized through a web dashboard.
 
@@ -42,6 +42,15 @@ JSON snapshot storage
 Flask monitoring dashboard
 Historical snapshot browsing
 
+### WAN Redundancy & Failover
+
+Dual-WAN architecture
+Primary and backup internet edge routers
+Floating static route failover
+WAN resiliency validation
+NAT failover testing
+Routing convergence testing
+
 ### Validation Tests
 
 The following features were successfully tested and validated:
@@ -58,6 +67,27 @@ Dashboard functionality
 ## Network Diagram
 <img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
 
+
+## WAN Failover Design
+
+The infrastructure uses dual edge routers for WAN resiliency:
+
+- Router-A operates as the primary internet edge router
+- Router-B operates as the backup internet edge router
+
+SW-DIST uses floating static routes to prefer Router-A during normal operation and automatically fail over to Router-B during WAN outages.
+
+### Primary Path
+SW-DIST → Router-A → ISP
+
+### Backup Path
+SW-DIST → Router-B → ISP
+
+Failover testing validated:
+- routing convergence
+- internet recovery
+- NAT functionality on backup router
+- operational resiliency
 
 ## Dashboard Screenshots
 ![alt text](<automation/screenshots/Screenshot 2026-05-11 at 6.55.54 pm.png>)
