@@ -4,7 +4,7 @@
 
 Python-based network automation and monitoring system built for the KhaleelCorp Enterprise Network Lab.
 
-The automation stack connects to Cisco IOS devices using SSH and Netmiko, collects operational network data, stores timestamped JSON snapshots, and visualizes the network state using a Flask web dashboard.
+The automation stack connects to Cisco IOS devices using SSH and Netmiko, collects operational network data, stores timestamped JSON snapshots, and visualizes collected network information through a Flask web dashboard.
 
 ---
 
@@ -189,7 +189,7 @@ http://127.0.0.1:5000
 
 ---
 
-## Dashboard Screenshot
+## Dashboard Screenshots
 ![alt text](<screenshots/Screenshot 2026-05-11 at 6.55.54 pm.png>)
 ![alt text](<screenshots/Screenshot 2026-05-11 at 6.56.09 pm.png>)
 ![alt text](<screenshots/Screenshot 2026-05-11 at 6.56.18 pm.png>)
@@ -276,13 +276,17 @@ while historical snapshots can be browsed directly from the dashboard interface.
 
 The automation platform successfully validated:
 
-* SSH connectivity
-* Multi-device collection
-* OSPF visibility
-* Routing visibility
+* SSH connectivity to Cisco IOS devices
+* Multi-device operational data collection
+* OSPF neighbor visibility
+* Routing table visibility
 * VLAN visibility
-* Dashboard rendering
+* Trunk interface visibility
 * JSON snapshot generation
+* Routing visibility through collected operational snapshots
+* Historical snapshot browsing
+* Flask dashboard rendering
+
 
 ---
 

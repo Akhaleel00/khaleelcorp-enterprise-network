@@ -8,6 +8,8 @@ Project implements enterprise routing and switching, dual-WAN internet resilienc
 
 Operational data is collected from Cisco devices via SSH using Python and visualized through a web dashboard.
 
+The project was developed and validated using physical Cisco hardware rather than network simulation software alone.
+
 ## Hardware Used
 - 2× Cisco ISR4331/K9 (IOS XE) — primary and failover routers
 - Cisco WS-C3750G-24TS-S1U — distribution/Layer 3 switch
@@ -16,53 +18,59 @@ Operational data is collected from Cisco devices via SSH using Python and visual
 ## Technologies Implemented
 
 ### Networking
-VLAN segmentation
-802.1Q trunking
-Inter-VLAN routing using SVIs
-OSPFv2 Area 0
-Default route advertisement
-NAT overload (PAT)
-DHCP services
-Static + dynamic routing validation
+- VLAN segmentation
+- 802.1Q trunking
+- Inter-VLAN routing using SVIs
+- OSPFv2 Area 0
+- Default route advertisement
+- NAT overload (PAT)
+- DHCP services
+- Static + dynamic routing validation
 
 ### Security
-SSHv2 remote management
-Port security (sticky MAC)
-BPDU Guard
-VLAN isolation
+- SSHv2 remote management
+- Port security (sticky MAC)
+- BPDU Guard
+- VLAN isolation
 
 ### High Availability
-OSPF-based internal failover testing
-Primary/backup router topology
+- OSPF-based internal failover testing
+- Primary/backup router topology
 
 ### Automation & Monitoring
-Python automation using Netmiko
-SSH data collection
-JSON snapshot storage
-Flask monitoring dashboard
-Historical snapshot browsing
+- Python automation using Netmiko
+- SSH data collection
+- JSON snapshot storage
+- Flask monitoring dashboard
+- Historical snapshot browsing
 
 ### WAN Redundancy & Failover
 
-Dual-WAN architecture
-Primary and backup internet edge routers
-Floating static route failover
-WAN resiliency validation
-NAT failover testing
-Routing convergence testing
+- Dual-WAN architecture
+- Primary and backup internet edge routers
+- Floating static route failover
+- WAN resiliency validation
+- NAT failover testing
+- Routing convergence testing
 
-### Validation Tests
+## Infrastructure Validation
 
-The following features were successfully tested and validated:
+The following infrastructure scenarios were successfully tested and validated:
 
-DHCP lease assignment
-NAT translations
-OSPF neighbor adjacency
-Inter-VLAN routing
-Internet connectivity
-Internal failover routing
-SSH automation connectivity
-Dashboard functionality
+- VLAN segmentation
+- Inter-VLAN routing
+- OSPF neighbor adjacency
+- Dynamic route propagation
+- NAT overload (PAT)
+- DHCP services
+- Internet connectivity
+- Internal OSPF failover
+- Dual-WAN failover
+- Backup NAT functionality
+- Routing convergence testing
+- SSH remote management
+- Python automation connectivity
+- Dashboard monitoring visibility
 
 ## Network Diagram
 <img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
@@ -75,7 +83,7 @@ The infrastructure uses dual edge routers for WAN resiliency:
 - Router-A operates as the primary internet edge router
 - Router-B operates as the backup internet edge router
 
-SW-DIST uses floating static routes to prefer Router-A during normal operation and automatically fail over to Router-B during WAN outages.
+SW-DIST uses floating static routes to support failover from Router-A to Router-B during WAN outage testing.
 
 ### Primary Path
 SW-DIST → Router-A → ISP
