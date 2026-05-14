@@ -1,275 +1,361 @@
 # Network Handoff Document
 
-**Project:** Khaleel Corp Enterprise Network Lab  
-**Author:** Amin Khaleel  
+**Project:** KhaleelCorp Enterprise Network Lab
+**Author:** Amin Khaleel
 **Date:** 2026-05
 
 ---
 
 # 1. Overview
 
-This network was designed to simulate a small enterprise environment with segmented VLANs, dynamic routing using OSPF, and internet access via NAT. Redundancy is implemented using dual routers, providing internal routing failover.
+This network was designed to simulate a small enterprise environment using physical Cisco hardware.
 
-The goal of this network is to demonstrate practical routing, switching, troubleshooting, and automation skills in a realistic topology.
+The environment implements VLAN segmentation, inter-VLAN routing, OSPF dynamic routing, dual-WAN resiliency, NAT services, Python-based network automation, and a Flask monitoring dashboard.
+
+The goal of the project is to demonstrate practical infrastructure engineering skills including routing, switching, failover validation, troubleshooting, automation, and operational monitoring.
 
 ---
 
 # 2. Network Architecture
 
-### Core Layer
+## Core Layer
 
-- **SW-DIST (Layer 3 Switch)**
-    
-    - Performs inter-VLAN routing (SVIs)
-        
-    - Acts as default gateway for all VLANs
-        
+### SW-DIST (Layer 3 Switch)
 
-### Access Layer
+* Performs inter-VLAN routing using SVIs
+* Acts as default gateway for all VLANs
+* Maintains OSPF adjacencies with edge routers
+* Uses floating static routes for WAN path preference
 
-- **SW-ACCESS (Layer 2 Switch)**
-    
-    - Connects end devices
-        
-    - Enforces port security and BPDU Guard
-        
+---
 
-### Edge Layer
+## Access Layer
 
-- **Router-A (Primary)**
-    
-    - WAN connectivity (DHCP)
-        
-    - NAT (PAT overload)
-        
-    - Injects default route into OSPF
-        
-- **Router-B (Secondary)**
-    
-    - Provides backup routing via OSPF
-        
-    - No WAN/NAT configured
-        
+### SW-ACCESS (Layer 2 Switch)
+
+* Connects end devices
+* Enforces PortFast and BPDU Guard
+* Provides VLAN access segmentation
+
+---
+
+## Edge Layer
+
+### Router-A (Primary WAN Router)
+
+* Primary internet edge router
+* WAN connectivity via DHCP
+* NAT overload (PAT)
+* OSPF default route advertisement
+
+### Router-B (Backup WAN Router)
+
+* Secondary internet edge router
+* Backup WAN connectivity via DHCP
+* Backup NAT overload (PAT)
+* Provides WAN failover path during Router-A failure
 
 ---
 
 # 3. Network Diagram
 
-Refer to:  
+Refer to:
+
 `khaleelcorp-network-diagram`
 
 ---
 
 # 4. IP Addressing Scheme
 
-### VLANs
+## VLANs
 
-|VLAN|Name|Subnet|Gateway|
-|---|---|---|---|
-|10|Reception|192.168.10.0/24|192.168.10.1|
-|20|Sales|192.168.20.0/24|192.168.20.1|
-|30|IT|192.168.30.0/24|192.168.30.1|
-|99|Management|10.0.99.0/24|10.0.99.1|
+| VLAN | Name       | Subnet          | Gateway      |
+| ---- | ---------- | --------------- | ------------ |
+| 10   | Reception  | 192.168.10.0/24 | 192.168.10.1 |
+| 20   | Sales      | 192.168.20.0/24 | 192.168.20.1 |
+| 30   | IT         | 192.168.30.0/24 | 192.168.30.1 |
+| 99   | Management | 10.0.99.0/24    | 10.0.99.1    |
 
-### Router Links
+---
 
-|Link|Subnet|
-|---|---|
-|SW-DIST ↔ Router-A|10.0.100.0/30|
-|SW-DIST ↔ Router-B|10.0.101.0/30|
+## Router Links
+
+| Link               | Subnet        |
+| ------------------ | ------------- |
+| SW-DIST ↔ Router-A | 10.0.100.0/30 |
+| SW-DIST ↔ Router-B | 10.0.101.0/30 |
 
 ---
 
 # 5. Routing Design (OSPF)
 
-- OSPF Area 0 is used across all devices
-    
-- SW-DIST advertises VLAN networks
-    
-- Router-A injects default route (`0.0.0.0/0`)
-    
-- Router-B acts as backup path
-    
+* OSPF Area 0 is deployed across all routing devices
+* SW-DIST advertises VLAN networks
+* Router-A advertises a default route into OSPF
+* Router-B provides backup WAN routing capability
 
-### Behavior:
+---
 
-- Under normal operation → traffic exits via Router-A
-    
-- On failure → routes reconverge via Router-B
-    
+## Routing Behavior
+
+### Normal Operation
+
+Traffic exits through:
+
+SW-DIST → Router-A → ISP
+
+---
+
+### Failover Operation
+
+During Router-A failure:
+
+* OSPF adjacency drops
+* SW-DIST transitions to backup route
+* Traffic reroutes through Router-B
+* Internet connectivity is restored through Router-B NAT
 
 ---
 
 # 6. Internet & NAT Configuration
 
-- Router-A WAN interface (`G0/0/1`) receives IP via DHCP
-    
-- NAT Overload (PAT) is configured:
-    
-    - Inside: `G0/0/0`
-        
-    - Outside: `G0/0/1`
-        
+## Router-A
 
-### Result:
+* WAN interface: `GigabitEthernet0/0/1`
+* Receives public IP via DHCP
+* Performs NAT overload (PAT)
 
-- Internal clients can access external networks using a single public IP
-    
+### NAT Configuration
+
+* Inside interface: `G0/0/0`
+* Outside interface: `G0/0/1`
+
+---
+
+## Router-B
+
+* Backup WAN interface: `GigabitEthernet0/0/1`
+* Receives IP via DHCP
+* Performs backup NAT overload (PAT)
+
+### NAT Configuration
+
+* Inside interface: `G0/0/0`
+* Outside interface: `G0/0/1`
 
 ---
 
 # 7. Switching Configuration
 
-### VLANs
+## VLANs
 
-- VLANs 10, 20, 30, 99 created on both switches
-    
+* VLANs 10, 20, 30, and 99 configured across switching infrastructure
 
-### Trunking
+---
 
-- 802.1Q trunk between SW-DIST and SW-ACCESS
-    
-- Allowed VLANs: 10, 20, 30, 99
-    
+## Trunking
 
-### Inter-VLAN Routing
+* 802.1Q trunk between SW-DIST and SW-ACCESS
+* Allowed VLANs:
 
-- Performed on SW-DIST using SVIs
-    
+  * 10
+  * 20
+  * 30
+  * 99
+
+---
+
+## Inter-VLAN Routing
+
+* Performed using SVIs on SW-DIST
 
 ---
 
 # 8. Security Features
 
-### Port Security
+## SSHv2 Remote Management
 
-- Enabled on access ports
-    
-- Sticky MAC addresses
-    
-- Violation mode: restrict
-    
-
-### BPDU Guard
-
-- Enabled on edge ports (PortFast)
-    
-
-### Segmentation
-
-- VLANs isolate departments
-    
+* Secure remote administrative access enabled
 
 ---
 
-# 9. Testing & Validation
+## Port Security
 
-The following tests were successfully completed:
+* Sticky MAC addressing enabled
+* Violation mode set to restrict
 
-### DHCP
+---
 
-- Clients receive correct IP addresses
-    
-- Verified using:
-    
+## BPDU Guard
+
+* Enabled on access ports using PortFast
+
+---
+
+## VLAN Segmentation
+
+* Departmental traffic isolation implemented using VLANs
+
+---
+
+# 9. Automation & Monitoring
+
+Python automation scripts were developed using:
+
+* Python
+* Netmiko
+* Flask
+* JSON snapshot storage
+
+---
+
+## Automation Functions
+
+* SSH connectivity to Cisco devices
+* Automated operational data collection
+* Timestamped JSON snapshot generation
+* Historical snapshot storage
+* Dashboard rendering of collected operational data
+
+---
+
+## Dashboard Features
+
+* Interface visibility
+* OSPF neighbor visibility
+* VLAN visibility
+* Routing table visibility
+* Historical snapshot browsing
+
+---
+
+# 10. Testing & Validation
+
+The following scenarios were successfully validated:
+
+## DHCP
+
+Verified using:
 
 ```bash
 show ip dhcp binding
 ```
 
-### OSPF
+---
 
-- Neighbors reach FULL state
-    
-- Verified using:
-    
+## OSPF Neighbor Adjacency
+
+Verified using:
 
 ```bash
 show ip ospf neighbor
 ```
 
-### Routing
+---
 
-- VLAN networks reachable across topology
-    
-- Verified using:
-    
+## Routing Visibility
+
+Verified using:
 
 ```bash
 show ip route
 ```
 
-### NAT
+---
 
-- Translations observed
-    
-- Verified using:
-    
+## NAT Functionality
+
+Verified using:
 
 ```bash
 show ip nat translations
 show ip nat statistics
 ```
 
-### Internet Connectivity
+---
 
-- Clients can ping external IP (8.8.8.8)
-    
+## Internet Connectivity
 
-### Failover (Internal)
+Validated using:
 
-- Router-A link shutdown simulated
-    
-- OSPF reconverged
-    
-- Connectivity restored via Router-B
-    
+```bash
+ping 8.8.8.8 source vlan10
+```
 
 ---
 
-# 10. Failover Behavior
+## WAN Failover
 
-### When Router-A fails:
+Validated by:
 
-- OSPF adjacency drops
-    
-- Default route removed
-    
-- Traffic reroutes via Router-B
-    
-- Internal connectivity remains functional
-    
-
-### Limitation:
-
-- Internet access is lost (Router-B has no WAN/NAT)
-    
+* simulating Router-A failure
+* observing OSPF convergence
+* verifying backup route activation
+* validating Router-B NAT translations
+* confirming internet recovery
 
 ---
 
-# 11. Troubleshooting Guide
+# 11. Failover Behavior
 
-### NAT Issues
+## Router-A Failure Scenario
+
+When Router-A internal uplink fails:
+
+* OSPF adjacency is lost
+* SW-DIST removes the primary route
+* Backup route through Router-B becomes active
+* Internet connectivity restores through Router-B
+
+---
+
+## Validation Evidence
+
+Evidence stored under:
+
+```text
+evidence/wan-failover/
+```
+
+Includes:
+
+* primary route validation
+* backup route activation
+* Router-B NAT translations
+* ping recovery testing
+* failback restoration
+
+---
+
+# 12. Troubleshooting Guide
+
+## NAT Troubleshooting
 
 ```bash
 show ip nat translations
 show ip nat statistics
 ```
 
-### OSPF Issues
+---
+
+## OSPF Troubleshooting
 
 ```bash
 show ip ospf neighbor
 show ip route
 ```
 
-### DHCP Issues
+---
+
+## DHCP Troubleshooting
 
 ```bash
 show ip dhcp binding
 ```
 
-### VLAN Issues
+---
+
+## VLAN Troubleshooting
 
 ```bash
 show vlan brief
@@ -278,57 +364,62 @@ show interfaces trunk
 
 ---
 
-# 14. Repository Structure
+## WAN Failover Troubleshooting
 
-```text
-configs/        → device configurations  
-evidence/       → test screenshots and outputs      
+```bash
+show ip route
+show ip nat translations
+show ip ospf neighbor
 ```
 
 ---
 
-# 15. Known Limitations
+# 13. Repository Structure
 
-- No internet failover (Router-B lacks WAN)
-    
-- No firewall implementation
-    
-- No centralized monitoring (SNMP/NetFlow)
-    
-- Dashboard is basic
-    
+```text
+configs/           → device configurations
+evidence/          → operational validation evidence
+automation/        → Python automation and dashboard
+troubleshooting/   → troubleshooting notes
+```
 
 ---
 
-# 16. Future Improvements
+# 14. Known Limitations
 
-- Add WAN/NAT to Router-B for full failover
-    
-- Implement firewall (ACLs or ASA)
-    
-- Add SNMP monitoring
-    
-- Add automation
-    
-- Add a dashboard to visualize data collected from automation
-    
+* WAN failover currently validates router failure scenarios rather than upstream ISP-only failure detection
+* No IP SLA or route tracking implemented
+* No firewall appliance implementation
+* Dashboard uses snapshot-based monitoring rather than real-time telemetry
 
 ---
 
-# 17. Conclusion
+# 15. Future Improvements
 
-This network demonstrates:
+* Implement IP SLA + route tracking
+* Add SNMP monitoring
+* Add Grafana/LibreNMS monitoring stack
+* Add automated configuration backups
+* Add real-time dashboard updates
+* Add centralized logging/syslog
+* Expand automation capabilities
 
-- Enterprise network design principles
-    
-- Routing and switching fundamentals
-    
-- Fault tolerance via OSPF
-    
-- Real-world troubleshooting
+---
 
-    
+# 16. Conclusion
 
-The environment is fully functional and can be extended for more advanced networking scenarios.
+This environment demonstrates:
+
+* enterprise routing and switching concepts
+* OSPF dynamic routing
+* VLAN segmentation
+* dual-WAN resiliency
+* NAT services
+* routing convergence testing
+* infrastructure troubleshooting
+* network automation
+* operational monitoring
+
+The environment is fully operational and can be extended into more advanced infrastructure engineering scenarios.
 
 ---
