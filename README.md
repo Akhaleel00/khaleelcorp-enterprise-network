@@ -75,6 +75,9 @@ The following infrastructure scenarios were successfully tested and validated:
 ## Network Diagram
 ![KhaleelCorp Network Diagram](khaleelcorp_networkdiagram.png)
 
+## Video Demo
+[![Watch the video](https://img.youtube.com/vi/t7tdSZk1oQQ/maxresdefault.jpg)](https://youtu.be/t7tdSZk1oQQ)
+
 ## WAN Failover Design
 
 The infrastructure uses dual edge routers for WAN resiliency:
@@ -103,7 +106,6 @@ Failover testing validated:
 - /configs — full running configs for all 4 devices
 - /evidence — show command output proving each feature works
 - /automation - Python automation + dashboard code
-- /troubleshooting - troubleshooting notes and fixes
 - network-handoff.md — handoff doc written for IT ops team
 
 
