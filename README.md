@@ -99,7 +99,7 @@ Failover testing validated:
 - NAT functionality on backup router
 - operational resiliency
 
-## Dashboard Screenshots
+## Dashboard Screenshot
 ![alt text](<automation/screenshots/Screenshot 2026-05-11 at 6.55.54 pm.png>)
 
 ## Repository Structure
