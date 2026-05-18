@@ -8,7 +8,7 @@ Project implements enterprise routing and switching, dual-WAN internet resilienc
 
 Operational data is collected from Cisco devices via SSH using Python and visualized through a web dashboard.
 
-The project was developed and validated using physical Cisco hardware rather than network simulation software alone.
+The project was developed and validated using physical Cisco hardware.
 
 ## Hardware Used
 - 2× Cisco ISR4331/K9 (IOS XE) — primary and failover routers
