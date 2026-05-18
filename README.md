@@ -73,8 +73,7 @@ The following infrastructure scenarios were successfully tested and validated:
 - Dashboard monitoring visibility
 
 ## Network Diagram
-<img width="510" height="661" alt="khaleelcorp drawio (1)" src="https://github.com/user-attachments/assets/f342e91c-26b9-4cdb-b868-6961c961a498" />
-
+![KhaleelCorp Network Diagram](khaleelcorp_networkdiagram.png)
 
 ## WAN Failover Design
 
